@@ -10,7 +10,7 @@ typedef struct s_lst
 	int dash;
 	int width;
 	int precision;
-	char specifier[1];
+	char specifier[2];
 }					t_lst;
 
 #endif

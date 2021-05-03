@@ -17,7 +17,6 @@ void	ft_specifier_s(va_list args)
 
 	ar = va_arg(args, char *);
 	ft_putstr_fd(ar, 1);
-	return ;
 }
 
 void	ft_specifier_c(va_list args)
@@ -26,7 +25,6 @@ void	ft_specifier_c(va_list args)
 
 	ar = va_arg(args, int);
 	ft_putchar_fd(ar, 1);
-	return ;
 }
 
 void	ft_specifier_di(va_list args)
@@ -37,10 +35,9 @@ void	ft_specifier_di(va_list args)
 	ar  = va_arg(args, int);
 	c = ft_itoa(ar);
 	ft_putstr_fd(c, 1);
-	return ;
 }
 
-int	ft_checker(const char *s, int count, va_list args)
+void	ft_checker(const char *s, va_list args)
 {
 	if (*s == 'd' || *s == 'i')
 		ft_specifier_di(args);
@@ -52,7 +49,86 @@ int	ft_checker(const char *s, int count, va_list args)
 	// 	ft_specifier_p(args);
 	if (*s == '%')
 		ft_putchar_fd('%', 1); // flags etc
-	return (count + 2);
+}
+
+int	ft_countlen(const char *s)
+{
+	int i;
+
+	i = 0;
+	while (ft_isdigit(s[i]))
+		i++;
+	return (i);
+}
+
+int	ft_prscion(const char *s, t_lst *lst)
+{
+	int i;
+
+	i = 0;
+	if (s[i] == '.')
+	{
+		i++;
+		lst->precision = atoi(&s[i]);
+		i = ft_countlen(&s[i]);
+	}
+	return (i + 1);
+}
+
+int	ft_width(const char *s, t_lst *lst)
+{
+	int i;
+
+	i = 0;
+	printf("s = %s\n", s);
+	if (ft_isdigit(s[i]))
+	{
+		lst->width = ft_atoi(s);
+		printf("lol\n");
+	}
+	printf("width in function %d\n", ft_atoi(s));
+	i = ft_countlen(&s[i]);
+	return (i);
+}
+
+int	ft_dashzero(const char *s, t_lst *lst)
+{
+	int i;
+	int flag;
+	
+	i = 0;
+	flag = 0;
+	while(s[i] == '0' || s[i] == '-')
+	{
+		if (s[i] == '-')
+			lst->dash = 1;
+		if (s[i] == '0' && lst->zero == 0)
+		{
+			lst->zero = 1;
+			flag = 1;
+		}
+		i++;
+	}
+	return (i);
+}
+
+int	ft_filler(const char *s, t_lst *lst)
+{
+	int i;
+
+	i = 0;
+	//printf("\n%s\n", s);
+	i = ft_dashzero(s + i, lst);
+	printf("\ndash %d\n", lst->dash);
+	printf("zero %d\n", lst->zero);
+	i += ft_width(s + i, lst);
+	printf("width %d\n", lst->width);
+	i += ft_prscion(s + i, lst);
+	printf("precision %d\n", lst->precision);
+	lst->specifier[0] = s[i];
+	printf("specifier %s\n", lst->specifier);
+	printf("i = %d\n", i);
+	return (i);
 }
 
 void	ft_init(t_lst *lst)
@@ -62,6 +138,7 @@ void	ft_init(t_lst *lst)
 	lst->width = -1;
 	lst->precision = -1;
 	lst->specifier[0] = '\0';
+	lst->specifier[1] = '\0';
 }
 
 int	ft_printf(const char *s, ...)
@@ -75,13 +152,18 @@ int	ft_printf(const char *s, ...)
 	va_start(args, s);
 	while (s[ret])
 	{
-		if (s[ret] != '%')
+		if (s[ret] == '%')
 		{
-			write(1, &s[ret], 1);
-			ret++;
+			ret += ft_filler(s + ret + 1, &lst);
+			ft_checker(s + ret + 1, args);
 		}
 		else
-			ret += ft_checker(&s[ret + 1], ret, args);
+		{
+			write(1, s + ret, 1);
+			ret++;
+		}
+		//printf("\nret = %d\n", ret);
+			//printf("dash= %d\n", lst.dash);
 	}
 	return (ret);
 }
@@ -89,17 +171,11 @@ int	ft_printf(const char *s, ...)
 int	main(void)
 {
 	int i, j, k, l;
-	int *iptr;
 
 	i = 10;
 	j = 20;
 	k = 30;
-	iptr = &i;
-	l = ft_printf("chars printed: %d, %d and %d and a char: %c, and again another string: %s and for the lols %%. And also a pointer: %p = ", i, j, k, 'k', "Hello World!", iptr);
-	printf("%d\n", l);
-	int b=0xFAFA;
-	
-	printf("value of a: %X [%x]\n", 0x1f, 0x1f);
-	printf("value of b: %X [%x]\n",b,b);
+	l = ft_printf("hallo %-00.4d", i);
+	printf("\nl = %d\n", l);
 	return (0);
 }
