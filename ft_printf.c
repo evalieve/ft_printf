@@ -2,6 +2,23 @@
 #include "ft_printf.h"
 #include "libft.h"
 
+char	*ft_fstrjoin(char *s1, char *s2)
+{
+	char	*s3;
+
+	if (!s1 || !s2)
+		return (0);
+	s3 = (char *)malloc((ft_strlen(s1) + ft_strlen(s2) + 1) * sizeof(char));
+	if (!s3)
+		return (0);
+	ft_memcpy(s3, s1, ft_strlen(s1));
+	ft_strlcpy(&s3[ft_strlen(s1)], s2, ft_strlen(s2) + 1);
+	free(s1);
+	free(s2);
+	return (s3);
+}
+
+
 int	ft_countlen(const char *s)
 {
 	int i;
@@ -43,26 +60,80 @@ void	ft_specifier_c(va_list args, t_lst *lst)
 		ft_putchar_fd(ar, 1);
 }
 
-void	ft_specifier_di(va_list args, t_lst *lst)
+void	ft_inclwidth(char *str, int width, int dash, int zero)
 {
-	int ar;
-	char *str;
-	char *c;
-	int arglen;
-	int prlen;
+	int len;
 
-	prlen = lst->precision;
-	ar  = va_arg(args, int);
-	c = ft_itoa(ar);
-	arglen = ft_countlen(ar);
+	len = width - ft_countlen(str);	
+	if (dash == 1)
+	{
+		ft_putstr_fd(str, 1);
+		while (len > 0)
+		{
+			ft_putchar_fd(' ', 1);
+			len--;
+		}
+	}
+	else
+	{
+		while (len > 0)
+		{
+			if (zero == 1)
+				ft_putchar_fd('0', 1);
+			else
+				ft_putchar_fd(' ', 1);
+			len--;
+		}
+		ft_putstr_fd(str,1);
+	}
+	free(str);
+}
+
+char	*ft_inclprcsion(char *c, int prlen)
+{
+	int arglen;
+	char *zeros;
+	char *str;
+
+	arglen = ft_countlen(c);
 	if (prlen > arglen)
 	{
-		str = (char *)malloc(prlen + 1 * sizeof(char));
+		zeros = ft_calloc(prlen - arglen + 1, sizeof(char));
+		if (!zeros)
+			return (0);
+		while (prlen - arglen > 0)
+		{
+			prlen--;
+			zeros[prlen - arglen] = '0';
+		}
+		str = ft_fstrjoin(zeros, c);
 		if (!str)
-			//return (0);
-		str[prlen] = '\0';
+			return (0);
+		return (str);
 	}
-	ft_putstr_fd(str, 1);
+	return (c);
+}
+
+int	ft_specifier_di(va_list args, t_lst *lst)
+{
+	char *str;
+	char *c;
+	int chr;
+
+	chr = va_arg(args, int);
+	// if (chr < 0)
+	// {
+	// 	ft_putchar_fd('-', 1);
+	// 	chr = chr * -1;
+	// }
+	c = ft_itoa(chr);
+	if (!c)
+			return (0);
+	str = ft_inclprcsion(c, lst->precision);
+	if (lst->precision > -1)
+		lst->zero = 0;
+	ft_inclwidth(str, lst->width, lst->dash, lst->zero);
+	return (1);
 }
 
 void	ft_checker(const char *s, va_list args, t_lst *lst)
@@ -88,6 +159,7 @@ int	ft_prscion(const char *s, t_lst *lst)
 		lst->precision = atoi(&s[i]);
 		i += ft_countlen(&s[i]);
 	}
+								//printf("%d\n", lst->precision);
 	return (i);
 }
 
@@ -200,8 +272,9 @@ int	main(void)
 	i = 10;
 	j = 20;
 	k = 30;
-	l = ft_printf("hallo %-009.9c %-9c %c dudes\n", a, b, c);
+	l = -123;
+	ft_printf("hallo %0.8i %-04.d %-2d %7.5d dudes\n", i, j, k, l);
 								//printf("\nl = %d\n", l);
-								printf("hallo %8.6d %-.1d %7d dudes\n", i, j, k);
+								printf("hallo %0.8i %-4.d %-2d %7.5d dudes\n", i, j, k, l);
 	return (0);
 }
