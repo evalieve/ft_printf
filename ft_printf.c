@@ -59,18 +59,24 @@ void	ft_specifier_c(va_list args, t_lst *lst)
 		}
 	}
 	if (lst->dash == 0)
+
 		ft_putchar_fd(ar, 1);
 }
 
-void	ft_inclwidth(char *str, int width, int dash, int zero)
+void	ft_inclwidth(char *str, int width, int dash, int zero, int precision, int c)
 {
 	int len;
 
 	len = width - ft_countlen(str);	
+	if (precision == 0 && c == 0)
+	{
+		str[0] = '\0';
+		len++;
+	}
 	if (dash == 1)
 	{
 		ft_putstr_fd(str, 1);
-		while (len > 0)
+		while (len > 0)				// functie voor putchar
 		{
 			ft_putchar_fd(' ', 1);
 			len--;
@@ -134,7 +140,7 @@ int	ft_specifier_di(va_list args, t_lst *lst)
 	str = ft_inclprcsion(c, lst->precision, neg);
 	if (lst->precision > -1)
 		lst->zero = 0;
-	ft_inclwidth(str, lst->width, lst->dash, lst->zero);
+	ft_inclwidth(str, lst->width, lst->dash, lst->zero, lst->precision, chr);
 	return (1);
 }
 
@@ -164,7 +170,7 @@ int	ft_prscion(const char *s, t_lst *lst, va_list args)
 			lst->precision = atoi(&s[i]);
 		i += ft_countlen(&s[i]);
 	}
-								printf("p = %d\n", lst->precision);
+								//printf("p = %d\n", lst->precision);
 	return (i);
 }
 
@@ -173,16 +179,16 @@ int	ft_width(const char *s, t_lst *lst, va_list args)
 	int i;
 
 	i = 0;
-								printf("s = %s\n", s);
+								//printf("s = %s\n", s);
 	if (s[i] == '*')
 	{
 		lst->width = va_arg(args, int);	
-		printf("i\n");
+		//printf("i\n");
 	}
 	else if (ft_isdigit(s[i]))
 		lst->width = ft_atoi(s);
 								//printf("width in function %d\n", ft_atoi(s));
-								printf("w = %d\n", lst->width);
+								//printf("w = %d\n", lst->width);
 	i = ft_countlen(&s[i]);
 	return (i);
 }
@@ -230,7 +236,7 @@ int	ft_filler(const char *s, t_lst *lst, va_list args)
 								// printf("\n\ndash %d\n", lst->dash);
 								// printf("zero %d\n", lst->zero);
 								// printf("width %d\n", lst->width);
-								 printf("precision %d\n", lst->precision);
+								 //printf("precision %d\n", lst->precision);
 								// printf("specifier %s\n\n", lst->specifier);
 	return (i);
 }
@@ -310,25 +316,27 @@ int	main(void)
 	// printf("%07.7d=%02.2d=%04.3d=%03.4d=%02.2d\n\n", 123, 123, 1234, 1234, 12);
 	// ft_printf("13 :\n%-7.7d=%-2.2d=%-5.3d=%-3.5d=%-3.3d\n", -123, -123, -1234, -1234, -12);
 	// printf("%07.7d=%02.2d=%05.3d=%03.5d=%03.3d\n\n", -123, -123, -1234, -1234, -12);
-	// ft_printf("14 :\n%0.5d=%7.0d=%0.3d=%3.0d=%0.5d=%7.0d=%0.3d=%3.0d=%6.0d=%6.d=%0.7d=%0.0d=%0.d\n", 123, 123, 12345, 12345, -123, -123, -12345, -12345, 0, 0, 0, 0, 0);
-	// printf("%0.5d=%7.0d=%0.3d=%3.0d=%0.5d=%7.0d=%0.3d=%3.0d=%6.0d=%6.d=%0.7d=%0.0d=%0.d\n\n", 123, 123, 12345, 12345, -123, -123, -12345, -12345, 0, 0, 0, 0, 0);
+	ft_printf("14 :\n%0.5d=%7.0d=%0.3d=%3.0d=%0.5d=%7.0d=%0.3d=%3.0d=%6.0d=%6.d=%0.7d=%0.0d=%0.d\n", 123, 123, 12345, 12345, -123, -123, -12345, -12345, 0, 0, 0, 0, 0);
+	printf("%0.5d=%7.0d=%0.3d=%3.0d=%0.5d=%7.0d=%0.3d=%3.0d=%6.0d=%6.d=%0.7d=%0.0d=%0.d\n\n", 123, 123, 12345, 12345, -123, -123, -12345, -12345, 0, 0, 0, 0, 0);
 	// ft_printf("15 :\n%15.5d=%15.15d=%15.5d=%15.15d\n", 2147483647, 2147483647, -2147483647, -2147483647);
 	// printf("%15.5d=%15.15d=%15.5d=%15.15d\n\n", 2147483647, 2147483647, -2147483647, -2147483647);
 	// ft_printf("16 :\n%-15.5d=%-15.15d=%-15.5d=%-15.15d\n", 2147483647, 2147483647, -2147483647, -2147483647);
 	// printf("%-15.5d=%-15.15d=%-15.5d=%-15.15d\n\n", 2147483647, 2147483647, -2147483647, -2147483647);
 	// ft_printf("17 :\n%015.5d=%015.15d=%015.5d=%015.15d\n", 2147483647, 2147483647, -2147483647, -2147483647);
 	// printf("%015.5d=%015.15d=%015.5d=%015.15d\n\n", 2147483647, 2147483647, -2147483647, -2147483647);
-	// ft_printf("18 :\n%d=%d=%15.5d=%15.15d\n", 001, -001, 001, -001);
-	// printf("%d=%d=%15.5d=%15.15d\n\n", 001, -001, 001, -001);
-	// ft_printf("19 :\n%-d=%-d=%-15.5d=%-15.15d\n", 001, -001, 001, -001);
-	// printf("%-d=%-d=%-15.5d=%-15.15d\n\n", 001, -001, 001, -001);
-	// ft_printf("20 :\n%0d=%0d=%015.5d=%015.15d\n", 001, -001, 001, -001);
-	// printf("%0d=%0d=%015.5d=%015.15d\n\n", 001, -001, 001, -001);
+	ft_printf("18 :\n%d=%d=%15.5d=%15.15d\n", 001, -001, 001, -001);
+	printf("%d=%d=%15.5d=%15.15d\n\n", 001, -001, 001, -001);
+	ft_printf("19 :\n%-d=%-d=%-15.5d=%-15.15d\n", 001, -001, 001, -001);
+	printf("%-d=%-d=%-15.5d=%-15.15d\n\n", 001, -001, 001, -001);
+	ft_printf("20 :\n%0d=%0d=%015.5d=%015.15d\n", 001, -001, 001, -001);
+	printf("%0d=%0d=%015.5d=%015.15d\n\n", 001, -001, 001, -001);
 	// ft_printf("21 :\n%07.5d=%d=%-d=%-d=%0d=%0d\n", +123, +0, +123, +0, +123, +0);
-	// printf("%07.5d=%d=%-d=%-d=%0d=%0d\n\n", +123, +0, +123, +0, +123, +0);
-	ft_printf("%*.*d\n", 4, 7, 123);
-	printf("%*.*d\n", 4, 7, 123);
-	ft_printf("%0d\n", 0);
-	printf("%0d\n", 0);
+	//  printf("%07.5d=%d=%-d=%-d=%0d=%0d\n\n", +123, +0, +123, +0, +123, +0);
+	// ft_printf("%*.*d\n", 4, 7, 123);
+	// printf("%*.*d\n", 4, 7, 123);
+	// ft_printf("%4.d\n", 0);
+	// printf("%4.d\n", 0);
+	ft_printf("14 :\n%6.0d=%6.d=%8d=%8.0d=%0.7d=%0.0d=%0.d\n", 0, 0, 0, 0, 0, 0, 0);
+	printf("%6.0d=%6.d=%8d=%8.0d=%0.7d=%0.0d=%0.d\n\n", 0, 0, 0, 0, 0, 0, 0);
 	return (0);
 }
