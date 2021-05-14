@@ -8,11 +8,15 @@ char	*ft_fstrjoin(char *s1, char *s2, int i)
 
 	if (!s1 || !s2)
 		return (0);
-	s3 = (char *)malloc((ft_strlen(s1) + ft_strlen(s2) + 1) * sizeof(char));
+//	printf("\nstring s1 = %s\n", s1);
+//	printf("\nstring s2 = %s\n", s2);
+	s3 = ft_calloc((ft_strlen(s1) + ft_strlen(s2) + 1), sizeof(char));
+	//	s3 = (char *)malloc((ft_strlen(s1) + ft_strlen(s2) + 1) * sizeof(char));
 	if (!s3)
 		return (0);
 	ft_memcpy(s3, s1, ft_strlen(s1));
 	ft_strlcpy(&s3[ft_strlen(s1)], &s2[i], ft_strlen(s2 + i) + 1);
+//	printf("\nstring s3 = %s\n", s3);
 	free(s1);
 	free(s2);
 	return (s3);
@@ -106,9 +110,10 @@ char	*ft_inclprcsion(char *c, int prlen, int neg)
 	if (c[0] == '-')
 		neg++;
 	arglen = ft_countlen(&c[neg]);
+	//printf("arglen = %d\n", arglen);
 	if (prlen > arglen)
 	{
-		zeros = ft_calloc(prlen - arglen + 1, sizeof(char));
+		zeros = ft_calloc(prlen - arglen + 1 + neg, sizeof(char));
 		if (!zeros)
 			return (0);
 		zeros[0] = '-';
@@ -134,7 +139,9 @@ int	ft_specifier_di(va_list args, t_lst *lst)
 
 	neg = 0;
 	chr = va_arg(args, int);
+//	printf("chr = %d\n", chr);
 	c = ft_itoa(chr);
+//	printf("c = %s\n", c);
 	if (!c)
 			return (0);
 	str = ft_inclprcsion(c, lst->precision, neg);
@@ -236,7 +243,7 @@ int	ft_filler(const char *s, t_lst *lst, va_list args)
 								// printf("\n\ndash %d\n", lst->dash);
 								// printf("zero %d\n", lst->zero);
 								// printf("width %d\n", lst->width);
-								 //printf("precision %d\n", lst->precision);
+								//  printf("precision %d\n", lst->precision);
 								// printf("specifier %s\n\n", lst->specifier);
 	return (i);
 }
@@ -266,6 +273,7 @@ int	ft_printf(const char *s, ...)
 			ret++;
 			ft_init(&lst);
 			ret += ft_filler(s + ret, &lst, args);
+		//	printf("ret = %d\n", ret);
 			ft_checker(s + ret, args, &lst);
 								//printf("ret: %d\n", ret);
 		}
@@ -316,27 +324,31 @@ int	main(void)
 	// printf("%07.7d=%02.2d=%04.3d=%03.4d=%02.2d\n\n", 123, 123, 1234, 1234, 12);
 	// ft_printf("13 :\n%-7.7d=%-2.2d=%-5.3d=%-3.5d=%-3.3d\n", -123, -123, -1234, -1234, -12);
 	// printf("%07.7d=%02.2d=%05.3d=%03.5d=%03.3d\n\n", -123, -123, -1234, -1234, -12);
-	ft_printf("14 :\n%0.5d=%7.0d=%0.3d=%3.0d=%0.5d=%7.0d=%0.3d=%3.0d=%6.0d=%6.d=%0.7d=%0.0d=%0.d\n", 123, 123, 12345, 12345, -123, -123, -12345, -12345, 0, 0, 0, 0, 0);
-	printf("%0.5d=%7.0d=%0.3d=%3.0d=%0.5d=%7.0d=%0.3d=%3.0d=%6.0d=%6.d=%0.7d=%0.0d=%0.d\n\n", 123, 123, 12345, 12345, -123, -123, -12345, -12345, 0, 0, 0, 0, 0);
+	// ft_printf("14 :\n%0.5d=%7.0d=%0.3d=%3.0d=%0.5d=%7.0d=%0.3d=%3.0d=%6.0d=%6.d=%0.7d=%0.0d=%0.d\n", 123, 123, 12345, 12345, -123, -123, -12345, -12345, 0, 0, 0, 0, 0);
+	// printf("%0.5d=%7.0d=%0.3d=%3.0d=%0.5d=%7.0d=%0.3d=%3.0d=%6.0d=%6.d=%0.7d=%0.0d=%0.d\n\n", 123, 123, 12345, 12345, -123, -123, -12345, -12345, 0, 0, 0, 0, 0);
 	// ft_printf("15 :\n%15.5d=%15.15d=%15.5d=%15.15d\n", 2147483647, 2147483647, -2147483647, -2147483647);
 	// printf("%15.5d=%15.15d=%15.5d=%15.15d\n\n", 2147483647, 2147483647, -2147483647, -2147483647);
 	// ft_printf("16 :\n%-15.5d=%-15.15d=%-15.5d=%-15.15d\n", 2147483647, 2147483647, -2147483647, -2147483647);
 	// printf("%-15.5d=%-15.15d=%-15.5d=%-15.15d\n\n", 2147483647, 2147483647, -2147483647, -2147483647);
 	// ft_printf("17 :\n%015.5d=%015.15d=%015.5d=%015.15d\n", 2147483647, 2147483647, -2147483647, -2147483647);
 	// printf("%015.5d=%015.15d=%015.5d=%015.15d\n\n", 2147483647, 2147483647, -2147483647, -2147483647);
-	ft_printf("18 :\n%d=%d=%15.5d=%15.15d\n", 001, -001, 001, -001);
-	printf("%d=%d=%15.5d=%15.15d\n\n", 001, -001, 001, -001);
-	ft_printf("19 :\n%-d=%-d=%-15.5d=%-15.15d\n", 001, -001, 001, -001);
-	printf("%-d=%-d=%-15.5d=%-15.15d\n\n", 001, -001, 001, -001);
-	ft_printf("20 :\n%0d=%0d=%015.5d=%015.15d\n", 001, -001, 001, -001);
-	printf("%0d=%0d=%015.5d=%015.15d\n\n", 001, -001, 001, -001);
+	// ft_printf("18 :\n%d=%d=%15.5d=%15.15d\n", 001, -001, 001, -001);
+	// printf("%d=%d=%15.5d=%15.15d\n\n", 001, -001, 001, -001);
+	// ft_printf("19 :\n%-d=%-d=%-15.5d=%-15.15d\n", 001, -001, 001, -001);
+	// printf("%-d=%-d=%-15.5d=%-15.15d\n\n", 001, -001, 001, -001);
+	// ft_printf("20 :\n%0d=%0d=%015.5d=%015.15d\n", 001, -001, 001, -001);
+	// printf("%0d=%0d=%015.5d=%015.15d\n\n", 001, -001, 001, -001);
 	// ft_printf("21 :\n%07.5d=%d=%-d=%-d=%0d=%0d\n", +123, +0, +123, +0, +123, +0);
 	//  printf("%07.5d=%d=%-d=%-d=%0d=%0d\n\n", +123, +0, +123, +0, +123, +0);
 	// ft_printf("%*.*d\n", 4, 7, 123);
 	// printf("%*.*d\n", 4, 7, 123);
 	// ft_printf("%4.d\n", 0);
 	// printf("%4.d\n", 0);
-	ft_printf("14 :\n%6.0d=%6.d=%8d=%8.0d=%0.7d=%0.0d=%0.d\n", 0, 0, 0, 0, 0, 0, 0);
-	printf("%6.0d=%6.d=%8d=%8.0d=%0.7d=%0.0d=%0.d\n\n", 0, 0, 0, 0, 0, 0, 0);
+	// ft_printf("14 :\n%6.0d=%6.d=%8d=%8.0d=%0.7d=%0.0d=%0.d\n", 0, 0, 0, 0, 0, 0, 0);
+	// printf("%6.0d=%6.d=%8d=%8.0d=%0.7d=%0.0d=%0.d\n\n", 0, 0, 0, 0, 0, 0, 0);
+	// // ft_printf("\n%015.15d\n", -001);
+	// printf("%015.15d\n\n", -001);
+		printf("%01000483647d\n", 1);
+		printf("3");
 	return (0);
 }
