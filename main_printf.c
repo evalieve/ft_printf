@@ -124,8 +124,8 @@ int	main(void)
 	// printf("%015.15u\n\n", (unsigned int)4294967295);
 
 	/* STRING (S) */
-	ft_printf("k%-18.2sk\n", "Hello World");
-	printf("k%-18.2sk\n", "Hello World");
+	ft_printf("k%.1sk\n", "Hello World");
+	printf("k%.1sk\n", "Hello World");
 
 	/* PERCENTAGE (%) */
 	//ft_printf("%-0%k\n");

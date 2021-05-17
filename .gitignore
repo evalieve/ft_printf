@@ -1,2 +1,5 @@
 a.out
 *.gch
+a.out.dSYM
+*.o
+*.a
