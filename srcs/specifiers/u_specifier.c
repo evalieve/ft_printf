@@ -4,12 +4,14 @@ void	ft_inclwidth_u(char *str, int arg, t_lst *lst)
 {
 	int	len;
 
-	len = lst->width - ft_countlen(str);
+	len = lst->width - ft_strlen(str);
+	//printf("\nstr= %s\n", str);
 	if (lst->precision == 0 && arg == 0)
 	{
 		str[0] = '\0';
-		len++;
-	//	printf("3\n");
+		if (lst->width > 0)
+			len++;
+		//printf("3\n");
 	}
 	if (lst->dash == 1)
 	{
@@ -19,7 +21,7 @@ void	ft_inclwidth_u(char *str, int arg, t_lst *lst)
 	}
 	else
 	{
-		if (lst->zero == 1)
+		if (lst->zero == 1 && lst->precision == -1)
 			ft_putchar('0', len);
 		else
 			ft_putchar(' ', len);

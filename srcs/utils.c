@@ -18,7 +18,7 @@ char	*ft_unsitoa(unsigned int nbr)
 	result = ft_calloc(len + 1, sizeof(char));
 	if (!result)
 		return (0);
-	result[len] = '\0';
+	//result[len] = '\0';
 	result[0] = '0';
 	while (nbr)
 	{
@@ -33,6 +33,7 @@ void	ft_putchar(char c, int amount)
 {
 	if (amount < 1)
 		return ;
+//	 printf("\nja %d\n\n", amount);
 	while (amount)
 	{
 		write(1, &c, 1);
@@ -72,7 +73,7 @@ void	ft_init(t_lst *lst)
 {
 	lst->zero = 0;
 	lst->dash = 0;
-	lst->width = -1;
+	lst->width = 0;
 	lst->precision = -1;
 	lst->specifier[0] = '\0';
 	lst->specifier[1] = '\0';

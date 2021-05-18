@@ -26,9 +26,11 @@ char	*ft_inclprcsion_s(char *str, int arglen, int prlen)
 {
 	char	*dup;
 
-	if (prlen < arglen)
+	if (prlen < arglen && prlen != -1)
 	{
 		dup = ft_calloc(prlen + 1, sizeof(char));
+		if (!dup)
+			return (0);
 		ft_strlcpy(dup, str, prlen + 1);
 		return (dup);
 	}
@@ -41,6 +43,8 @@ int	ft_specifier_s(va_list args, t_lst *lst)
 	int arglen;
 
 	str = va_arg(args, char *);
+	if (!str)
+		str = "(null)";
 	arglen = ft_strlen(str);
 	str = ft_inclprcsion_s(str, arglen, lst->precision);
 	arglen = ft_strlen(str);

@@ -12,6 +12,8 @@ void	ft_checker(const char *s, va_list args, t_lst *lst)
 		ft_specifier_s(args, lst);
 	if (*s == '%')
 		ft_specifier_prcntge(lst);
+	if (*s == 'X' || *s == 'x')
+		ft_specifier_Xx(args, lst);
 }
 
 int	ft_prscion(const char *s, t_lst *lst, va_list args)
@@ -28,6 +30,8 @@ int	ft_prscion(const char *s, t_lst *lst, va_list args)
 			lst->precision = atoi(&s[i]);
 		i += ft_countlen(&s[i]);
 	}
+	if (lst->precision < -1)
+		lst->precision = -1;
 	return (i);
 }
 
@@ -37,7 +41,14 @@ int	ft_width(const char *s, t_lst *lst, va_list args)
 
 	i = 0;
 	if (s[i] == '*')
+	{
 		lst->width = va_arg(args, int);
+		if (lst->width < 0)
+		{
+			lst->width = lst->width * -1;
+			lst->dash = 1;
+		}
+	}
 	else if (ft_isdigit(s[i]))
 		lst->width = ft_atoi(s);
 	i = ft_countlen(&s[i]);

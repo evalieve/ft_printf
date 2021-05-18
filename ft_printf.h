@@ -41,4 +41,9 @@ int	ft_specifier_prcntge(t_lst *lst);
 
 int	ft_specifier_s(va_list args, t_lst *lst);
 
+int	ft_specifier_Xx(va_list args, t_lst *lst);
+
+void	ft_inclwidth_u(char *str, int arg, t_lst *lst);
+char	*ft_inclprcsion_di(char *nbr, int prlen, int neg);
+
 #endif
