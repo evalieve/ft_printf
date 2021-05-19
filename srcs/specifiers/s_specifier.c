@@ -1,10 +1,12 @@
 #include "../../ft_printf.h"
 
-void	ft_inclwidth_s(char *str, t_lst *lst, int strlen)
+int	ft_inclwidth_s(char *str, t_lst *lst, int strlen)
 {
 	int wlen;
 
 	wlen = lst->width - strlen;
+	if (wlen < 0)
+		wlen = 0;
 	if (wlen > 0)
 	{
 		if (lst->dash)
@@ -20,6 +22,7 @@ void	ft_inclwidth_s(char *str, t_lst *lst, int strlen)
 	}
 	else
 		ft_putstr_fd(str, 1);
+	return (wlen);
 }
 
 char	*ft_inclprcsion_s(char *str, int arglen, int prlen)
@@ -41,6 +44,7 @@ int	ft_specifier_s(va_list args, t_lst *lst)
 {
 	char *str;
 	int arglen;
+	int len;
 
 	str = va_arg(args, char *);
 	if (!str)
@@ -48,6 +52,6 @@ int	ft_specifier_s(va_list args, t_lst *lst)
 	arglen = ft_strlen(str);
 	str = ft_inclprcsion_s(str, arglen, lst->precision);
 	arglen = ft_strlen(str);
-	ft_inclwidth_s(str, lst, arglen);
-	return (1);
+	len = ft_inclwidth_s(str, lst, arglen);
+	return (ft_strlen(str) + len);
 }

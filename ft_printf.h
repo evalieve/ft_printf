@@ -4,7 +4,7 @@
 # include <stdarg.h>
 # include <unistd.h>
 # include <stdio.h>
-# include "libft.h"
+# include "libft/libft.h"
 
 typedef struct s_lst
 {
@@ -21,13 +21,13 @@ void	ft_init(t_lst *lst);
 
 int	ft_filler(const char *s, t_lst *lst, va_list args);
 
-void	ft_checker(const char *s, va_list args, t_lst *lst);
+int	ft_checker(const char *s, va_list args, t_lst *lst);
 
 int	ft_countlen(const char *s);
 
 int	ft_specifier_di(va_list args, t_lst *lst);
 
-void	ft_specifier_c(va_list args, t_lst *lst);
+int	ft_specifier_c(va_list args, t_lst *lst);
 
 char	*ft_fstrjoin(char *s1, char *s2, int i);
 
@@ -43,7 +43,11 @@ int	ft_specifier_s(va_list args, t_lst *lst);
 
 int	ft_specifier_Xx(va_list args, t_lst *lst);
 
-void	ft_inclwidth_u(char *str, int arg, t_lst *lst);
+int	ft_specifier_p(va_list args, t_lst *lst);
+
+int	ft_inclwidth_u(char *str, int arg, t_lst *lst);
 char	*ft_inclprcsion_di(char *nbr, int prlen, int neg);
+char	*ft_hexitoa(unsigned long num, char type);
+char	*ft_inclprcsion_Xx(char *str, int strlen, int prlen);
 
 #endif

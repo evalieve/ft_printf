@@ -41,7 +41,7 @@ void	ft_putchar(char c, int amount)
 	}
 }
 
-char	*ft_fstrjoin(char *s1, char *s2, int i)
+char	*ft_fstrjoin(char *s1, char *s2, int neg)
 {
 	char	*s3;
 
@@ -51,7 +51,7 @@ char	*ft_fstrjoin(char *s1, char *s2, int i)
 	if (!s3)
 		return (0);
 	ft_memcpy(s3, s1, ft_strlen(s1));
-	ft_strlcpy(&s3[ft_strlen(s1)], &s2[i], ft_strlen(s2 + i) + 1);
+	ft_strlcpy(&s3[ft_strlen(s1)], &s2[neg], ft_strlen(s2 + neg) + 1);
 	free(s1);
 	free(s2);
 	return (s3);

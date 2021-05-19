@@ -1,19 +1,24 @@
 #include "../ft_printf.h"
 
-void	ft_checker(const char *s, va_list args, t_lst *lst)
+int	ft_checker(const char *s, va_list args, t_lst *lst)
 {
+	int print;
+
 	if (*s == 'd' || *s == 'i')
-		ft_specifier_di(args, lst);
+		print = ft_specifier_di(args, lst);
 	if (*s == 'c')
-		ft_specifier_c(args, lst);
+		print = ft_specifier_c(args, lst);
 	if (*s == 'u')
-	 	ft_specifier_u(args, lst);
+	 	print = ft_specifier_u(args, lst);
 	if (*s == 's')
-		ft_specifier_s(args, lst);
+		print = ft_specifier_s(args, lst);
 	if (*s == '%')
-		ft_specifier_prcntge(lst);
+		print = ft_specifier_prcntge(lst);
 	if (*s == 'X' || *s == 'x')
-		ft_specifier_Xx(args, lst);
+		print = ft_specifier_Xx(args, lst);
+	if (*s == 'p')
+		print = ft_specifier_p(args, lst);
+	return (print);
 }
 
 int	ft_prscion(const char *s, t_lst *lst, va_list args)

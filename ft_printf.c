@@ -2,24 +2,31 @@
 
 int	ft_printf(const char *s, ...)
 {
+	int track;
 	int ret;
 	va_list args;
 	t_lst lst;
 
+	track = 0;
 	ret = 0;
 	va_start(args, s);
-	while (s[ret])
+	//printf("\nstarttttt\n");
+	while (s[track])
 	{
-		if (s[ret] == '%')
+		if (s[track] == '%')
 		{
-			ret++;
+			track++;
 			ft_init(&lst);
-			ret += ft_filler(s + ret, &lst, args);
-			ft_checker(s + ret, args, &lst);
+			track += ft_filler(s + track, &lst, args);
+			ret += ft_checker(s + track, args, &lst);
 		}
 		else
-			write(1, s + ret, 1);
-		ret++;
+		{
+			write(1, s + track, 1);
+			ret++;
+		}
+		track++;
+		//printf("\nret in function = %d\n", ret);
 	}
 	return (ret);
 }

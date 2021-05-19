@@ -1,6 +1,6 @@
 #include "../../ft_printf.h"
 
-void	ft_specifier_c(va_list args, t_lst *lst)
+int	ft_specifier_c(va_list args, t_lst *lst)
 {
 	int	ar;
 	int	lenwidth;
@@ -11,6 +11,9 @@ void	ft_specifier_c(va_list args, t_lst *lst)
 		ft_putchar_fd(ar, 1);
 	if (lenwidth > 0)
 		ft_putchar(' ', lenwidth);
+	else
+	 	lenwidth = 0;
 	if (lst->dash == 0)
 		ft_putchar_fd(ar, 1);
+	return (lenwidth + 1);
 }

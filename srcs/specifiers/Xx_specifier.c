@@ -53,10 +53,10 @@ char	*ft_inclprcsion_Xx(char *str, int strlen, int prlen)
 	return (str);
 }
 
-char	*ft_hexitoa(unsigned int num, char type)
+char	*ft_hexitoa(unsigned long num, char type)
 {
 	int len;
-	unsigned int numdup;
+	unsigned long numdup;
 	char *str;
 
 	len = 0;
@@ -94,6 +94,7 @@ int	ft_specifier_Xx(va_list args, t_lst *lst)
 	char *str;
 	char type;
 	int strlen;
+	int len;
 
 	type = 'a';
 	if (*lst->specifier == 'X')
@@ -103,6 +104,7 @@ int	ft_specifier_Xx(va_list args, t_lst *lst)
 	strlen = ft_strlen(str);
 	str = ft_inclprcsion_Xx(str, strlen, lst->precision);
 	//ft_inclwidth_Xx(str, arg, lst);
-	ft_inclwidth_u(str, arg, lst);
-	return (1);
+	len = ft_inclwidth_u(str, arg, lst);
+	//printf("\nstr = %zu\n", ft_strlen(str));
+	return (ft_strlen(str) + len);
 }

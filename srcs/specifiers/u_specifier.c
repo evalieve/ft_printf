@@ -1,10 +1,12 @@
 #include "../../ft_printf.h"
 
-void	ft_inclwidth_u(char *str, int arg, t_lst *lst)
+int	ft_inclwidth_u(char *str, int arg, t_lst *lst)
 {
 	int	len;
 
 	len = lst->width - ft_strlen(str);
+	if (len < 0)
+		len = 0;
 	//printf("\nstr= %s\n", str);
 	if (lst->precision == 0 && arg == 0)
 	{
@@ -29,6 +31,7 @@ void	ft_inclwidth_u(char *str, int arg, t_lst *lst)
 	//	printf("5\n");
 	}
 	free(str);
+	return (len);
 }
 
 char	*ft_inclprcsion_u(char *nbr, int prlen)
@@ -62,6 +65,7 @@ int	ft_specifier_u(va_list args, t_lst *lst)
 {
 	unsigned int arg;
 	char *nbr;
+	int len;
 
 	arg = va_arg(args, int);
 	nbr = ft_unsitoa(arg);
@@ -73,7 +77,8 @@ int	ft_specifier_u(va_list args, t_lst *lst)
 	nbr = ft_inclprcsion_u(nbr, lst->precision);
 	if (!nbr)
 		return (0);
+	len = ft_strlen(nbr);
 		//printf("%s\n", nbr);
-	ft_inclwidth_u(nbr, arg, lst);
-	return (1);
+	len += ft_inclwidth_u(nbr, arg, lst);
+	return (len);
 }
