@@ -1,4 +1,4 @@
-#include "../../ft_printf.h"
+ #include "../../ft_printf.h"
 
 int	ft_inclwidth_s(char *str, t_lst *lst, int strlen)
 {
@@ -29,12 +29,14 @@ char	*ft_inclprcsion_s(char *str, int arglen, int prlen)
 {
 	char	*dup;
 
+	str = ft_strdup(str);
 	if (prlen < arglen && prlen != -1)
 	{
 		dup = ft_calloc(prlen + 1, sizeof(char));
 		if (!dup)
 			return (0);
 		ft_strlcpy(dup, str, prlen + 1);
+		free(str);
 		return (dup);
 	}
 	return (str);
@@ -53,5 +55,6 @@ int	ft_specifier_s(va_list args, t_lst *lst)
 	str = ft_inclprcsion_s(str, arglen, lst->precision);
 	arglen = ft_strlen(str);
 	len = ft_inclwidth_s(str, lst, arglen);
-	return (ft_strlen(str) + len);
+    free(str);
+	return (arglen + len);
 }

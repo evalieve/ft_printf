@@ -45,7 +45,7 @@ int	ft_specifier_Xx(va_list args, t_lst *lst);
 
 int	ft_specifier_p(va_list args, t_lst *lst);
 
-int	ft_inclwidth_u(char *str, int arg, t_lst *lst);
+void	ft_inclwidth_u(char *str, int arg, t_lst *lst, int len);
 char	*ft_inclprcsion_di(char *nbr, int prlen, int neg);
 char	*ft_hexitoa(unsigned long num, char type);
 char	*ft_inclprcsion_Xx(char *str, int strlen, int prlen);

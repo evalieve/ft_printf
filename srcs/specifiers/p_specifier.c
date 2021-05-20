@@ -5,6 +5,8 @@ int	ft_specifier_p(va_list args, t_lst *lst)
 	unsigned long arg;
 	char *str;
 	char *chrestic;
+	int		len;
+	int strlen;
 
 	chrestic = ft_calloc(3, sizeof(char));
 	if (!chrestic)
@@ -14,16 +16,19 @@ int	ft_specifier_p(va_list args, t_lst *lst)
 
 	arg = va_arg(args, unsigned long);
 	str = ft_hexitoa(arg ,'a');
-	if (str[0] == '0' && str[1] == '\0')
+	if (lst->precision > -1)
 	{
-			str[0] = '\0';
-			arg = 1;
+		if (str[0] == '0' && str[1] == '\0')
+		{
+				str[0] = '\0';
+				arg = 1;
+		}
 	}
-	//ft_printf("\nstr = %s\n", str);
 	str = ft_fstrjoin(chrestic, str, 0);
-	//str = ft_inclprcsion_Xx(str, ft_strlen(str), lst->precision);
-	//printf("\nstr = %s\n", str);
-	ft_inclwidth_u(str, arg, lst);
-	//free(str);
-	return (1);
+	strlen = ft_strlen(str);
+	len =  lst->width - strlen;
+	if (len < 0)
+		len = 0;
+	ft_inclwidth_u(str, arg, lst, len);
+	return (strlen + len);
 }

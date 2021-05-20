@@ -26,7 +26,7 @@ int	ft_printf(const char *s, ...)
 			ret++;
 		}
 		track++;
-		//printf("\nret in function = %d\n", ret);
+	//	printf("\nret in function = %d\n", ret);
 	}
 	return (ret);
 }

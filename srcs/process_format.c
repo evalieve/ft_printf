@@ -96,5 +96,7 @@ int	ft_filler(const char *s, t_lst *lst, va_list args)
 	lst->specifier[0] = s[i];
 	if (lst->dash == 1 && lst->zero == 1)
 		lst->zero = 0;
+	if ((s[i] == 'i' || s[i] == 'u' || s[i] == 'd') && lst->precision > -1)
+		lst->zero = 0;
 	return (i);
 }

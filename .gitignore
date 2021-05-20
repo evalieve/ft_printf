@@ -3,3 +3,7 @@ a.out
 a.out.dSYM
 *.o
 *.a
+42TESTER-PRINTF
+printfTester
+.DS_Store
+diff.txt

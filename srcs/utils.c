@@ -18,7 +18,6 @@ char	*ft_unsitoa(unsigned int nbr)
 	result = ft_calloc(len + 1, sizeof(char));
 	if (!result)
 		return (0);
-	//result[len] = '\0';
 	result[0] = '0';
 	while (nbr)
 	{
@@ -33,7 +32,6 @@ void	ft_putchar(char c, int amount)
 {
 	if (amount < 1)
 		return ;
-//	 printf("\nja %d\n\n", amount);
 	while (amount)
 	{
 		write(1, &c, 1);

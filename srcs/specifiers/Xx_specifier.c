@@ -1,36 +1,5 @@
 #include "../../ft_printf.h"
 
-// void	ft_inclwidth_Xx(char *str, unsigned int arg, t_lst *lst)
-// {
-// 	int	len;
-
-// 	len = lst->width - ft_strlen(str);
-// 	//printf("\nstr= %s\n", str);
-// 	if (lst->precision == 0 && arg == 0)
-// 	{
-// 		str[0] = '\0';
-// 		if (lst->width > 0)
-// 			len++;
-// 		//printf("3\n");
-// 	}
-// 	if (lst->dash == 1)
-// 	{
-// 		ft_putstr_fd(str, 1);
-// 		ft_putchar(' ', len);
-// 	//	printf("4\n");
-// 	}
-// 	else
-// 	{
-// 		if (lst->zero == 1 && lst->precision == -1)
-// 			ft_putchar('0', len);
-// 		else
-// 			ft_putchar(' ', len);
-// 		ft_putstr_fd(str, 1);
-// 	//	printf("5\n");
-// 	}
-// 	free(str);
-// }
-
 char	*ft_inclprcsion_Xx(char *str, int strlen, int prlen)
 {
 	char *new;
@@ -46,7 +15,7 @@ char	*ft_inclprcsion_Xx(char *str, int strlen, int prlen)
 			new[prlen - strlen] = '0';
 		}
 		new = ft_fstrjoin(new, str, 0);
-		if (!str)
+		if (!new)
 			return (0);
 		return (new);
 	}
@@ -68,11 +37,9 @@ char	*ft_hexitoa(unsigned long num, char type)
 		numdup = numdup / 16;
 		len++;
 	}
-	//printf("len = %d\n", len);
 	str = ft_calloc(len + 1, sizeof(char));
 	if (!str)
 		return (0);
-	//str[len] = '\0';
 	str[0] = '0';
 	while (num)
 	{
@@ -103,8 +70,13 @@ int	ft_specifier_Xx(va_list args, t_lst *lst)
 	str = ft_hexitoa(arg, type);
 	strlen = ft_strlen(str);
 	str = ft_inclprcsion_Xx(str, strlen, lst->precision);
-	//ft_inclwidth_Xx(str, arg, lst);
-	len = ft_inclwidth_u(str, arg, lst);
-	//printf("\nstr = %zu\n", ft_strlen(str));
-	return (ft_strlen(str) + len);
+	if (arg == 0 && lst->precision == 0)
+		strlen = 0;
+	else
+		strlen = ft_strlen(str);
+	len = lst->width - strlen;
+	if (len < 0)
+		len = 0;
+	ft_inclwidth_u(str, arg, lst, len);
+	return (strlen + len);
 }
