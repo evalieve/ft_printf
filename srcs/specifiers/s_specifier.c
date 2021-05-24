@@ -52,6 +52,7 @@ int	ft_specifier_s(va_list args, t_lst *lst)
 	if (!str)
 		str = "(null)";
 	arglen = ft_strlen(str);
+	printf("strlen = %d\n", arglen);
 	str = ft_inclprcsion_s(str, arglen, lst->precision);
 	arglen = ft_strlen(str);
 	len = ft_inclwidth_s(str, lst, arglen);
