@@ -45,6 +45,8 @@ int	ft_width(const char *s, t_lst *lst, va_list args)
 	int	i;
 
 	i = 0;
+	while (s[i] == '-' || s[i] == '0')
+			i++;
 	if (s[i] == '*')
 	{
 		lst->width = va_arg(args, int);
@@ -54,9 +56,9 @@ int	ft_width(const char *s, t_lst *lst, va_list args)
 			lst->dash = 1;
 		}
 	}
-	else if (ft_isdigit(s[i]))
-		lst->width = ft_atoi(s);
-	i = ft_countlen(&s[i]);
+	else
+		lst->width = ft_atoi(s + i);
+	i += ft_countlen(&s[i]);
 	return (i);
 }
 

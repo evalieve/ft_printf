@@ -1059,60 +1059,64 @@ int	main(void)
 
 	int ret;
 	int ft_ret;
-	char *e;
+	// char *e;
 
-	e = NULL;
-	printf("1:\n");
-	ft_ret = ft_printf("[%8s]\n", NULL);
-	ret = printf("[%8s]\n", NULL);
-	printf("ret = %d\n", ret);
-	printf("ft_ret = %d\n\n", ft_ret);
+	// e = NULL;
+	// printf("1:\n");
+	// ft_ret = ft_printf("[%8s]\n", NULL);
+	// ret = printf("[%8s]\n", NULL);
+	// printf("ret = %d\n", ret);
+	// printf("ft_ret = %d\n\n", ft_ret);
 	
-	printf("2:\n");
-	ft_ret = ft_printf("[%---2s]\n", NULL);
-	ret = printf("[%---2s]\n", NULL);
-	printf("ret = %d\n", ret);
-	printf("ft_ret = %d\n\n", ft_ret);
+	// printf("2:\n");
+	// ft_ret = ft_printf("[%---2s]\n", NULL);
+	// ret = printf("[%---2s]\n", NULL);
+	// printf("ret = %d\n", ret);
+	// printf("ft_ret = %d\n\n", ft_ret);
 
-	printf("3:\n");
-	ft_ret = ft_printf("%.*s\n", -2, NULL);
-	ret = printf("%.*s\n", -2, NULL);
-	printf("ret = %d\n", ret);
-	printf("ft_ret = %d\n\n", ft_ret);
+	// printf("3:\n");
+	// ft_ret = ft_printf("%.*s\n", -2, NULL);
+	// ret = printf("%.*s\n", -2, NULL);
+	// printf("ret = %d\n", ret);
+	// printf("ft_ret = %d\n\n", ft_ret);
 
-	printf("4:\n");
-	ft_ret = ft_printf("[%.0s]\n", NULL);
-	ret = printf("[%.0s]\n", NULL);
-	printf("ret = %d\n", ret);
-	printf("ft_ret = %d\n\n", ft_ret);
+	// printf("4:\n");
+	// ft_ret = ft_printf("[%.0s]\n", NULL);
+	// ret = printf("[%.0s]\n", NULL);
+	// printf("ret = %d\n", ret);
+	// printf("ft_ret = %d\n\n", ft_ret);
 	
-	printf("5:\n");
-	ft_ret = ft_printf("[%.1s]\n", NULL);
-	ret = printf("[%.1s]\n", NULL);
-	printf("ret = %d\n", ret);
-	printf("ft_ret = %d\n\n", ft_ret);
+	// printf("5:\n");
+	// ft_ret = ft_printf("[%.1s]\n", NULL);
+	// ret = printf("[%.1s]\n", NULL);
+	// printf("ret = %d\n", ret);
+	// printf("ft_ret = %d\n\n", ft_ret);
 	
-	printf("6:\n");
-	ft_ret = ft_printf("[%.2s]\n", NULL);
-	ret = printf("[%.2s]\n", NULL);
-	printf("ret = %d\n", ret);
-	printf("ft_ret = %d\n\n", ft_ret);
+	// printf("6:\n");
+	// ft_ret = ft_printf("[%.2s]\n", NULL);
+	// ret = printf("[%.2s]\n", NULL);
+	// printf("ret = %d\n", ret);
+	// printf("ft_ret = %d\n\n", ft_ret);
 	
-	printf("7:\n");
-	ft_ret = ft_printf("[%.4s]\n", NULL);
-	ret = printf("[%.4s]\n", NULL);
-	printf("ret = %d\n", ret);
-	printf("ft_ret = %d\n\n", ft_ret);
+	// printf("7:\n");
+	// ft_ret = ft_printf("[%.4s]\n", NULL);
+	// ret = printf("[%.4s]\n", NULL);
+	// printf("ret = %d\n", ret);
+	// printf("ft_ret = %d\n\n", ft_ret);
 	
-	printf("8:\n");
-	ft_ret = ft_printf("[%.8s]\n", NULL);
-	ret = printf("[%.8s]\n", NULL);
-	printf("ret = %d\n", ret);
-	printf("ft_ret = %d\n\n", ft_ret);
+	// printf("8:\n");
+	// ft_ret = ft_printf("[%.8s]\n", NULL);
+	// ret = printf("[%.8s]\n", NULL);
+	// printf("ret = %d\n", ret);
+	// printf("ft_ret = %d\n\n", ft_ret);
 
-	ft_ret = ft_printf("%-2s, %.s, %-4s, %-2.4s, %-8.12s, %3s, %8s, %---2s, EvA %.*s, Eva %.0s, %.1s, %.2s, %.4s, %.8s", NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, -2, NULL, NULL, NULL, NULL, NULL, NULL);
-	ret = printf("%-2s, %.s, %-4s, %-2.4s, %-8.12s, %3s, %8s, %---2s, EvA %.*s, Eva %.0s, %.1s, %.2s, %.4s, %.8s", NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, -2, NULL, NULL, NULL, NULL, NULL, NULL);
+	// int l = 0;
+	// int a = 12;
+
+	ft_ret = ft_printf("|%s|\n", "Hilmi");
+	ret = printf("|%s|\n", "Hilmi");
 	printf("ret = %d\n", ret);
 	printf("ft_ret = %d\n\n", ft_ret);
+	//system("leaks a.out");
 	return (0);
 }

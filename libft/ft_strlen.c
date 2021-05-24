@@ -17,14 +17,8 @@ size_t	ft_strlen(const char *s)
 {
 	int	i;
 
-	//printf("strlen = %s\n", s);
-	if (!s)
-		return (0);
 	i = 0;
 	while (s[i])
-	{
 		i++;
-	//	printf("while loop = %d\n", i);
-	}
 	return (i);
 }
