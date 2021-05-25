@@ -49,10 +49,14 @@ int	ft_specifier_s(va_list args, t_lst *lst)
 	else
 		str = ft_strdup(str);
 	if (!str)
-		return (0);
+		return (-1);
 	arglen = ft_strlen(str);
 	if (lst->precision < arglen && lst->precision != -1)
+	{
 		str = ft_inclprcsion_s(str, lst->precision);
+		if (!str)
+			return (-1);
+	}
 	arglen = ft_strlen(str);
 	len = ft_inclwidth_s(str, lst, arglen);
 	free(str);
