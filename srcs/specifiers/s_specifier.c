@@ -1,8 +1,8 @@
- #include "../../ft_printf.h"
+#include "../../ft_printf.h"
 
 int	ft_inclwidth_s(char *str, t_lst *lst, int strlen)
 {
-	int wlen;
+	int	wlen;
 
 	wlen = lst->width - strlen;
 	if (wlen < 0)
@@ -28,7 +28,7 @@ int	ft_inclwidth_s(char *str, t_lst *lst, int strlen)
 char	*ft_inclprcsion_s(char *str, int prlen)
 {
 	char	*dup;
-	
+
 	dup = ft_calloc(prlen + 1, sizeof(char));
 	if (!dup)
 		return (0);
@@ -55,6 +55,6 @@ int	ft_specifier_s(va_list args, t_lst *lst)
 		str = ft_inclprcsion_s(str, lst->precision);
 	arglen = ft_strlen(str);
 	len = ft_inclwidth_s(str, lst, arglen);
-    free(str);
+	free(str);
 	return (arglen + len);
 }

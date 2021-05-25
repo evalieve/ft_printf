@@ -39,17 +39,17 @@ char	*ft_inclprcsion_u(char *nbr, int prlen)
 		str = ft_fstrjoin(str, nbr, 0);
 		if (!str)
 			return (0);
-		return (str); 
+		return (str);
 	}
 	return (nbr);
 }
 
 int	ft_specifier_u(va_list args, t_lst *lst)
 {
-	unsigned int arg;
-	char *nbr;
-	int strlen;
-	int len;
+	unsigned int	arg;
+	char			*nbr;
+	int				strlen;
+	int				len;
 
 	arg = va_arg(args, int);
 	nbr = ft_unsitoa(arg);

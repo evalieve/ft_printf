@@ -2,14 +2,14 @@
 
 int	ft_checker(const char *s, va_list args, t_lst *lst)
 {
-	int print;
+	int	print;
 
 	if (*s == 'd' || *s == 'i')
 		print = ft_specifier_di(args, lst);
 	if (*s == 'c')
 		print = ft_specifier_c(args, lst);
 	if (*s == 'u')
-	 	print = ft_specifier_u(args, lst);
+		print = ft_specifier_u(args, lst);
 	if (*s == 's')
 		print = ft_specifier_s(args, lst);
 	if (*s == '%')
@@ -46,7 +46,7 @@ int	ft_width(const char *s, t_lst *lst, va_list args)
 
 	i = 0;
 	while (s[i] == '-' || s[i] == '0')
-			i++;
+		i++;
 	if (s[i] == '*')
 	{
 		lst->width = va_arg(args, int);

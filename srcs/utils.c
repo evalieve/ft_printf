@@ -57,7 +57,7 @@ char	*ft_fstrjoin(char *s1, char *s2, int neg)
 
 int	ft_countlen(const char *s)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (s[i] == '-' || s[i] == '*')

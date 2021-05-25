@@ -2,7 +2,7 @@
 
 char	*ft_inclprcsion_Xx(char *str, int strlen, int prlen)
 {
-	char *new;
+	char	*new;
 
 	if (prlen > strlen)
 	{
@@ -22,21 +22,28 @@ char	*ft_inclprcsion_Xx(char *str, int strlen, int prlen)
 	return (str);
 }
 
-char	*ft_hexitoa(unsigned long num, char type)
+int	ft_devider(unsigned long num)
 {
-	int len;
-	unsigned long numdup;
-	char *str;
+	int	len;
 
 	len = 0;
-	numdup = num;
-	if (numdup == 0)
+	if (num == 0)
 		len++;
-	while (numdup)
+	while (num)
 	{
-		numdup = numdup / 16;
+		num = num / 16;
 		len++;
 	}
+	return (len);
+}
+
+char	*ft_hexitoa(unsigned long num, char type)
+{
+	int				len;
+	unsigned long	numdup;
+	char			*str;
+
+	len = ft_devider(num);
 	str = ft_calloc(len + 1, sizeof(char));
 	if (!str)
 		return (0);
@@ -57,19 +64,22 @@ char	*ft_hexitoa(unsigned long num, char type)
 
 int	ft_specifier_Xx(va_list args, t_lst *lst)
 {
-	unsigned int arg;
-	char *str;
-	char type;
-	int strlen;
-	int len;
+	unsigned int	arg;
+	char			*str;
+	char			type;
+	int				strlen;
+	int				len;
 
 	type = 'a';
 	if (*lst->specifier == 'X')
 		type = 'A';
 	arg = va_arg(args, unsigned int);
 	str = ft_hexitoa(arg, type);
-	strlen = ft_strlen(str);
-	str = ft_inclprcsion_Xx(str, strlen, lst->precision);
+	if (!str)
+		return (0);
+	str = ft_inclprcsion_Xx(str, ft_strlen(str), lst->precision);
+	if (!str)
+		return (0);
 	if (arg == 0 && lst->precision == 0)
 		strlen = 0;
 	else

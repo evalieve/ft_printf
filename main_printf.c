@@ -904,10 +904,6 @@ int	main(void)
 	// d = malloc(sizeof(char) * 10);
 	// e = NULL;
 
-	/*
-	** Testing with variable a
-	*/
-
 	// ft_printf("1:\n_%p_\n", &a);//1 -- int a = 0;
 	// printf("_%p_\n\n", &a);
 	// ft_printf("2:\n_%.p_\n", &a);//2 -- int a = 0;
