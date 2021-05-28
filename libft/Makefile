@@ -32,23 +32,23 @@ CC = gcc
 CFLAGS = -Wall -Werror -Wextra
 RM = rm -f
 
-all : $(NAME)
+all: $(NAME)
 
-$(NAME) : $(NORMAL_O)
+$(NAME): $(NORMAL_O)
 	ar rc $@ $^
 
-%.o : %.c $(HEADER)
+%.o: %.c $(HEADER)
 	$(CC) $(CFLAGS) -c $<
 
-bonus : $(NORMAL_O) $(BONUS_O)
+bonus: $(NORMAL_O) $(BONUS_O)
 	ar rc $(NAME) $^
 
-clean :
+clean:
 	$(RM) $(NORMAL_O) $(BONUS_O)
 
-fclean : clean
+fclean: clean
 	$(RM) $(NAME)
 
-re : fclean all
+re: fclean all
 
-.PHONY : all clean fclean re bonus
+.PHONY: all clean fclean re bonus

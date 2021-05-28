@@ -1,6 +1,6 @@
 #include "../../ft_printf.h"
 
-void	ft_inclwidth_u(char *str, int arg, t_lst *lst, int len)
+void	ft_inclwidth_upXx(char *str, int arg, t_lst *lst, int len)
 {
 	if (lst->precision == 0 && arg == 0)
 		str[0] = '\0';
@@ -65,6 +65,6 @@ int	ft_specifier_u(va_list args, t_lst *lst)
 	len = lst->width - strlen;
 	if (len < 0)
 		len = 0;
-	ft_inclwidth_u(nbr, arg, lst, len);
+	ft_inclwidth_upXx(nbr, arg, lst, len);
 	return (len + strlen);
 }

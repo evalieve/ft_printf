@@ -25,6 +25,6 @@ int	ft_specifier_p(va_list args, t_lst *lst)
 	len = lst->width - strlen;
 	if (len < 0)
 		len = 0;
-	ft_inclwidth_u(str, arg, lst, len);
+	ft_inclwidth_upXx(str, arg, lst, len);
 	return (strlen + len);
 }

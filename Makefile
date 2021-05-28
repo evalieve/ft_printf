@@ -4,7 +4,10 @@ LIBFT = libft.a
 
 HEADER = ft_printf.h
 
-SRCS = ft_printf.c srcs/specifiers/c_specifier.c srcs/specifiers/p_specifier.c srcs/specifiers/di_specifier.c srcs/specifiers/s_specifier.c srcs/specifiers/u_specifier.c srcs/specifiers/Xx_specifier.c srcs/specifiers/prcntge_specifier.c srcs/process_format.c srcs/utils.c
+SRCS = ft_printf.c srcs/specifiers/c_specifier.c srcs/specifiers/p_specifier.c \
+		srcs/specifiers/di_specifier.c srcs/specifiers/s_specifier.c \
+		srcs/specifiers/u_specifier.c srcs/specifiers/Xx_specifier.c \
+		srcs/specifiers/prcntge_specifier.c srcs/process_format.c srcs/utils.c
 
 OBJS = $(SRCS:.c=.o)
 
@@ -12,25 +15,25 @@ CC = gcc
 
 FLAGS = -Wall -Werror -Wextra
 
-all :$(LIBFT) $(NAME) 
+all: $(LIBFT) $(NAME)
 
-$(NAME) :$(OBJS) 
+$(NAME): $(OBJS)
 	cp libft/$(LIBFT) $@
 	ar rc $@ $^
 
-$(LIBFT) :
+$(LIBFT):
 	make -C libft/
 
-%.o : %.c $(HEADER)
+%.o: %.c $(HEADER)
 	$(CC) $(FLAGS) -c $< -o $@
 
-clean :
+clean:
 	rm -f $(OBJS)
 	make fclean -C libft/
 
-fclean : clean
+fclean: clean
 	rm -f $(NAME)
 
-re : fclean all
+re: fclean all
 
-.PHONY : all clean fclean re
+.PHONY: all clean fclean re
