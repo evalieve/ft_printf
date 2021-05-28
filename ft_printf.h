@@ -19,7 +19,7 @@ int		ft_printf(const char *s, ...);
 
 void	ft_init(t_lst *lst);
 
-int		ft_filler(const char *s, t_lst *lst, va_list args);
+int		ft_filler(const char *s, va_list args, t_lst *lst);
 
 int		ft_checker(const char *s, va_list args, t_lst *lst);
 

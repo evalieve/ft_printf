@@ -15,13 +15,10 @@ int	ft_specifier_p(va_list args, t_lst *lst)
 	chrestic[1] = 'x';
 	arg = va_arg(args, unsigned long);
 	str = ft_hexitoa(arg, 'a');
-	if (lst->precision > -1)
+	if (lst->precision > -1 && str[0] == '0' && str[1] == '\0')
 	{
-		if (str[0] == '0' && str[1] == '\0')
-		{
-			str[0] = '\0';
-			arg = 1;
-		}
+		str[0] = '\0';
+		arg = 1;
 	}
 	str = ft_fstrjoin(chrestic, str, 0);
 	strlen = ft_strlen(str);

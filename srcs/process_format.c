@@ -87,7 +87,7 @@ int	ft_dashzero(const char *s, t_lst *lst)
 	return (0);
 }
 
-int	ft_filler(const char *s, t_lst *lst, va_list args)
+int	ft_filler(const char *s, va_list args, t_lst *lst)
 {
 	int	i;
 

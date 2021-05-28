@@ -1,8 +1,14 @@
 #include "ft_printf.h"
 
-int	ft_prcssformat()
+int	ft_stringprcss(int *track, va_list args, t_lst *lst, const char *s)
 {
-	// shorten printf function bc too many lines
+	int	check;
+
+	(*track)++;
+	ft_init(lst);
+	*track += ft_filler(s + *track, args, lst);
+	check = ft_checker(s + *track, args, lst);
+	return (check);
 }
 
 int	ft_printf(const char *s, ...)
@@ -20,20 +26,15 @@ int	ft_printf(const char *s, ...)
 	{
 		if (s[track] == '%')
 		{
-			track++;
-			ft_init(&lst);
-			track += ft_filler(s + track, &lst, args);
-			check = ft_checker(s + track, args, &lst);
+			check = ft_stringprcss(&track, args, &lst, s);
 			if (check == -1)
 				return (-1);
-			else
-				ret += check;
+			ret += check;
+			track++;
+			continue ;
 		}
-		else
-		{
-			write(1, s + track, 1);
-			ret++;
-		}
+		write(1, s + track, 1);
+		ret++;
 		track++;
 	}
 	return (ret);
