@@ -69,10 +69,10 @@ int	ft_specifier_di(va_list args, t_lst *lst)
 	arg = va_arg(args, int);
 	nbr = ft_itoa(arg);
 	if (!nbr)
-		return (0);
+		return (-1);
 	nbr = ft_inclprcsion_di(nbr, lst->precision, 0);
 	if (!nbr)
-		return (0);
+		return (-1);
 	if (lst->zero == 1)
 		fill = '0';
 	if (arg == 0 && lst->precision == 0)

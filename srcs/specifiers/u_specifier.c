@@ -54,10 +54,10 @@ int	ft_specifier_u(va_list args, t_lst *lst)
 	arg = va_arg(args, int);
 	nbr = ft_unsitoa(arg);
 	if (!nbr)
-		return (0);
+		return (-1);
 	nbr = ft_inclprcsion_u(nbr, lst->precision);
 	if (!nbr)
-		return (0);
+		return (-1);
 	if (lst->precision == 0 && arg == 0)
 		strlen = 0;
 	else

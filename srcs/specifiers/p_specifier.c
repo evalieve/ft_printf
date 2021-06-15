@@ -10,7 +10,7 @@ int	ft_specifier_p(va_list args, t_lst *lst)
 
 	chrestic = ft_calloc(3, sizeof(char));
 	if (!chrestic)
-		return (0);
+		return (-1);
 	chrestic[0] = '0';
 	chrestic[1] = 'x';
 	arg = va_arg(args, unsigned long);

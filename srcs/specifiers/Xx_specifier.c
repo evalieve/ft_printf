@@ -76,10 +76,10 @@ int	ft_specifier_Xx(va_list args, t_lst *lst)
 	arg = va_arg(args, unsigned int);
 	str = ft_hexitoa(arg, type);
 	if (!str)
-		return (0);
+		return (-1);
 	str = ft_inclprcsion_Xx(str, ft_strlen(str), lst->precision);
 	if (!str)
-		return (0);
+		return (-1);
 	if (arg == 0 && lst->precision == 0)
 		strlen = 0;
 	else

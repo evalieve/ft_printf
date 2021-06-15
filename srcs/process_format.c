@@ -32,7 +32,7 @@ int	ft_prscion(const char *s, t_lst *lst, va_list args)
 		if (s[i] == '*')
 			lst->precision = va_arg(args, int);
 		else
-			lst->precision = atoi(&s[i]);
+			lst->precision = ft_atoi(&s[i]);
 		i += ft_countlen(&s[i]);
 	}
 	if (lst->precision < -1)
