@@ -7,3 +7,4 @@ a.out.dSYM
 printfTester
 .DS_Store
 diff.txtpft/
+.gitignore
